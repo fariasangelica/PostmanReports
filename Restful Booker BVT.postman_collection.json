@@ -691,12 +691,12 @@
               "basic": [
                 {
                   "key": "password",
-                  "value": "",
+                  "value": "{{password}}",
                   "type": "string"
                 },
                 {
                   "key": "username",
-                  "value": "admin",
+                  "value": "{{username}}",
                   "type": "string"
                 }
               ]
@@ -710,10 +710,6 @@
               {
                 "key": "Accept",
                 "value": "application/json"
-              },
-              {
-                "key": "Cookie",
-                "value": "token=abc123"
               }
             ],
             "body": {
@@ -785,12 +781,12 @@
               "basic": [
                 {
                   "key": "password",
-                  "value": "",
+                  "value": "{{password}}",
                   "type": "string"
                 },
                 {
                   "key": "username",
-                  "value": "admin",
+                  "value": "{{username}}",
                   "type": "string"
                 }
               ]
@@ -804,10 +800,6 @@
               {
                 "key": "Accept",
                 "value": "application/json"
-              },
-              {
-                "key": "Cookie",
-                "value": "token=abc123"
               }
             ],
             "body": {
@@ -879,12 +871,12 @@
               "basic": [
                 {
                   "key": "password",
-                  "value": "",
+                  "value": "{{password}}",
                   "type": "string"
                 },
                 {
                   "key": "username",
-                  "value": "admin",
+                  "value": "{{username}}",
                   "type": "string"
                 }
               ]
@@ -898,10 +890,6 @@
               {
                 "key": "Accept",
                 "value": "application/json"
-              },
-              {
-                "key": "Cookie",
-                "value": "token=abc123"
               }
             ],
             "body": {
@@ -983,12 +971,12 @@
               "basic": [
                 {
                   "key": "password",
-                  "value": "",
+                  "value": "{{password}}",
                   "type": "string"
                 },
                 {
                   "key": "username",
-                  "value": "admin",
+                  "value": "{{username}}",
                   "type": "string"
                 }
               ]
@@ -1002,10 +990,6 @@
               {
                 "key": "Accept",
                 "value": "application/json"
-              },
-              {
-                "key": "Cookie",
-                "value": "token=abc123"
               }
             ],
             "body": {
@@ -1076,12 +1060,12 @@
               "basic": [
                 {
                   "key": "password",
-                  "value": "",
+                  "value": "{{password}}",
                   "type": "string"
                 },
                 {
                   "key": "username",
-                  "value": "admin",
+                  "value": "{{username}}",
                   "type": "string"
                 }
               ]
@@ -1095,10 +1079,6 @@
               {
                 "key": "Accept",
                 "value": "application/json"
-              },
-              {
-                "key": "Cookie",
-                "value": "token=abc123"
               }
             ],
             "body": {
@@ -1164,7 +1144,12 @@
               "pm.test(\"Response contains token\", function () {",
               "    var jsonData = pm.response.json();",
               "    pm.expect(jsonData).to.have.property(\"token\");",
-              "});"
+              "});",
+              "",
+              "// guarda o token para uso posterior (Cookie: token={{token}})",
+              "if (pm.response.json().token) {",
+              "    pm.environment.set(\"token\", pm.response.json().token);",
+              "}"
             ],
             "type": "text/javascript"
           }
@@ -1180,7 +1165,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"\"\n}"
+          "raw": "{\n    \"username\" : \"{{username}}\",\n    \"password\" : \"{{password}}\"\n}"
         },
         "url": {
           "raw": "{{rb_url}}/auth",
@@ -1253,8 +1238,8 @@
           "listen": "test",
           "script": {
             "exec": [
-              "pm.test(\"Status code is 200\", function () {",
-              "    pm.response.to.have.status(200);",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
               "});",
               "",
               "",
@@ -1276,12 +1261,12 @@
           "basic": [
             {
               "key": "password",
-              "value": "",
+              "value": "{{password}}",
               "type": "string"
             },
             {
               "key": "username",
-              "value": "admin",
+              "value": "{{username}}",
               "type": "string"
             }
           ]
@@ -1291,10 +1276,6 @@
           {
             "key": "Content-Type",
             "value": "application/json"
-          },
-          {
-            "key": "Cookie",
-            "value": "token=abc123"
           }
         ],
         "url": {
